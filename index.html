@@ -3,9 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sandeep Kumar — AI Engineer</title>
+<title>Sandeep Kumar - AI Engineer</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='600' fill='white' text-anchor='middle'%3ESK%3C/text%3E%3C/svg%3E" />
-<meta name="description" content="Sandeep Kumar — AI / Forward Deployed Engineer. Ships production LLM agent systems: multi-agent orchestration, eval harnesses, deterministic guardrails, RAG, and the Snowflake + dbt data platforms that feed them." />
+<meta name="description" content="Sandeep Kumar - AI / Forward Deployed Engineer. Ships production LLM agent systems: multi-agent orchestration, eval harnesses, deterministic guardrails, RAG, and the Snowflake + dbt data platforms that feed them." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Sandeep Kumar - AI Engineer" />
+<meta property="og:description" content="AI / Forward Deployed Engineer. Production LLM agent systems: multi-agent orchestration, eval harnesses, guardrails, RAG, and the data platforms that feed them." />
+<meta property="og:url" content="https://95sandykumar.github.io/sandeepkumar.github.io/" />
+<meta property="og:image" content="https://95sandykumar.github.io/sandeepkumar.github.io/assets/img/profile-img.JPG" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Sandeep Kumar - AI Engineer" />
+<meta name="twitter:description" content="Production LLM agent systems and the data platforms that feed them." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +27,7 @@
     --bg-2:#f4f4f5;
     --ink:#09090b;
     --ink-2:#52525b;
-    --ink-3:#a1a1aa;
+    --ink-3:#71717a;
     --line:#e4e4e7;
     --line-2:#d4d4d8;
     --card:#ffffff;
@@ -292,7 +300,7 @@
   .foot-inner{display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
     font-family:'Geist Mono',monospace; font-size:.76rem; color:var(--ink-3);}
 
-  /* reveal — CSS-transition driven (JS adds .in) */
+  /* reveal - CSS-transition driven (JS adds .in) */
   .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
   .reveal.in{opacity:1; transform:none;}
   /* hero stagger on load */
@@ -344,7 +352,7 @@
     <div class="nav-cta">
       <a href="assets/docs/Sandeep-Kumar-AI-Engineer.pdf" class="btn ghost" download>Résumé <span class="dl">&darr;</span></a>
       <a href="#contact" class="btn magnetic">Get in touch <span class="arw">&rarr;</span></a>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -352,7 +360,7 @@
 </nav>
 
 <div class="menu-backdrop" id="menuBackdrop"></div>
-<aside class="mobile-menu" id="mobileMenu">
+<aside class="mobile-menu" id="mobileMenu" inert>
   <a href="#work">Work</a>
   <a href="#portfolio">Portfolio</a>
   <a href="#toolkit">Toolkit</a>
@@ -363,6 +371,8 @@
 </aside>
 
 <a id="top"></a>
+
+<main>
 
 <!-- ============ HERO ============ -->
 <header class="hero">
@@ -427,12 +437,12 @@
           framework in TypeScript</strong> with a 4-tier intent-dispatch router, ~25 commands, an error/feedback
           learning loop, and a manual-approval human-in-the-loop gate. Every agent tool call passes a
           <strong>deterministic guardrail layer</strong> that validates it against hard-coded business rules before
-          execution &mdash; it has blocked 156 invalid actions in production.
+          execution. It has blocked 156 invalid actions in production.
         </p>
         <p>
           The rigor underneath it is the point. I built an <strong>LLM eval harness</strong> from 15 hand-labeled
           expert trajectories, scored multi-turn runs with DeepEval and LLM-as-judge, tracked everything in MLflow, and
-          gated deployment on pass rate &mdash; catching 11% of regressions before release. A/B testing two tool-config
+          gated deployment on pass rate, catching 11% of regressions before release. A/B testing two tool-config
           variants shipped the winner on a 17-point lift; a LoRA fine-tune took eval accuracy from 55% to 83%. Governance
           (ISO 42001, NIST AI RMF) is wired in as automated guardrail enforcement, not paperwork.
         </p>
@@ -485,7 +495,7 @@
         <span class="idx mono">03</span>
         <div class="t-tag">safety before execution</div>
         <h3>Deterministic Guardrail Layer</h3>
-        <p>Validates every agent-proposed tool call against hard-coded business rules before it runs &mdash; 156 invalid actions blocked in production. ISO 42001 / NIST AI RMF enforcement wired in.</p>
+        <p>Validates every agent-proposed tool call against hard-coded business rules before it runs. 156 invalid actions blocked in production. ISO 42001 / NIST AI RMF enforcement wired in.</p>
         <div class="tags"><span>Guardrails</span><span>Governance</span><span>Safety</span></div>
       </article>
       <article class="tile lg reveal">
@@ -605,13 +615,13 @@
         <p>Built Python ETL pipelines and SQL data models, spearheaded a Power BI resource-management tool, and cut batch processing times 50% with Apache Spark.</p>
       </div>
       <div class="tl reveal">
-        <div class="when">2019&ndash;2022 &middot; Manufacturing</div>
+        <div class="when">2019-2022 &middot; Manufacturing</div>
         <h3>Volvo</h3>
         <div class="meta">Project Manager / Data Analyst</div>
         <p>Automated forecasting and reporting with Python and Excel VBA, built Power BI dashboards for 10+ units and 20+ KPIs per line. Earned the Innovation Award.</p>
       </div>
       <div class="tl reveal">
-        <div class="when">2023&ndash;2024 &middot; Graduate school</div>
+        <div class="when">2023-2024 &middot; Graduate school</div>
         <h3>Indiana University</h3>
         <div class="meta">Teaching Assistant, Statistics &middot; M.S. Information Science</div>
         <p>Built 20+ R and Python notebooks and used SQL to query large datasets, supporting cancer-research analysis on high-volume data.</p>
@@ -673,6 +683,8 @@
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="wrap foot-inner">
     <span>&copy; 2026 Sandeep Kumar &middot; Chicago, IL</span>
@@ -681,9 +693,9 @@
 </footer>
 
 <!-- scroll-animation libraries (progressive enhancement) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha512-iU75mTk9AqGsEqmsAupS/sejIWCdsxgDjeIFOOA9zgj8gi3ZNfJISd0FKhnmuKo4XuglcvL+iGd0mS2wA03zCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 
 <script defer>
 window.addEventListener('DOMContentLoaded', () => {
@@ -706,11 +718,16 @@ window.addEventListener('DOMContentLoaded', () => {
     menu.classList.toggle('open', open);
     backdrop.classList.toggle('open', open);
     ham.setAttribute('aria-expanded', open);
+    ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.toggleAttribute('inert', !open);
     document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { const first = menu.querySelector('a'); if (first) first.focus(); }
+    else if (document.activeElement && menu.contains(document.activeElement)) { ham.focus(); }
   };
   ham.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
   backdrop.addEventListener('click', () => setMenu(false));
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false); });
 
   // ---- magnetic buttons (transform only, rAF, no state) ----
   if (!reduceMotion && window.matchMedia('(hover:hover)').matches) {
@@ -836,7 +853,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
   } else {
-    // ===== Fallback: no GSAP/Lenis CDN — IntersectionObserver reveals =====
+    // ===== Fallback: no GSAP/Lenis CDN - IntersectionObserver reveals =====
     document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries, obs) => {

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sandeep Kumar — Data &amp; AI Engineer</title>
-<meta name="description" content="Sandeep Kumar — Data &amp; Analytics Engineer and AI Developer. Snowflake + dbt platform owner and AI agent builder, 5+ years across manufacturing, consulting and healthcare media." />
+<title>Sandeep Kumar — AI Engineer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='600' fill='white' text-anchor='middle'%3ESK%3C/text%3E%3C/svg%3E" />
+<meta name="description" content="Sandeep Kumar — AI / Forward Deployed Engineer. Ships production LLM agent systems: multi-agent orchestration, eval harnesses, deterministic guardrails, RAG, and the Snowflake + dbt data platforms that feed them." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,9 +23,9 @@
     --line:#e4e4e7;
     --line-2:#d4d4d8;
     --card:#ffffff;
-    --accent:#059669;          /* emerald-600, single accent */
-    --accent-2:#047857;
-    --accent-soft:#ecfdf5;
+    --accent:#4f46e5;          /* indigo-600, single accent */
+    --accent-2:#4338ca;
+    --accent-soft:#eef2ff;
     --radius:1.5rem;
     --radius-sm:0.875rem;
     --shadow:0 20px 40px -18px rgba(9,9,11,.10);
@@ -52,6 +53,13 @@
 
   h1,h2,h3{margin:0; font-weight:600; letter-spacing:-0.02em; line-height:1.05;}
 
+  /* scroll progress bar */
+  .scroll-progress{
+    position:fixed; top:0; left:0; right:0; height:2px; z-index:60;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transform:scaleX(0); transform-origin:0 50%; will-change:transform;
+  }
+
   /* eyebrow / kicker */
   .kicker{
     font-family:'Geist Mono',monospace; font-size:.72rem; font-weight:500;
@@ -73,8 +81,12 @@
   .btn:active{transform:translateY(1px) scale(.985);}
   .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line-2);}
   .btn.ghost:hover{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .btn.accent{background:var(--accent); border-color:var(--accent);}
+  .btn.accent:hover{background:var(--accent-2); border-color:var(--accent-2);}
   .btn .arw{transition:transform .25s var(--ease);}
   .btn:hover .arw{transform:translateX(3px);}
+  .btn .dl{transition:transform .25s var(--ease);}
+  .btn:hover .dl{transform:translateY(2px);}
 
   /* ---------- NAV ---------- */
   nav{
@@ -99,7 +111,8 @@
     content:""; position:absolute; left:0; right:0; bottom:-5px; height:1.5px;
     background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .25s var(--ease);
   }
-  .nav-links .lnk:hover{color:var(--ink);} .nav-links .lnk:hover::after{transform:scaleX(1);}
+  .nav-links .lnk:hover{color:var(--ink);} .nav-links .lnk:hover::after,.nav-links .lnk.active::after{transform:scaleX(1);}
+  .nav-links .lnk.active{color:var(--ink);}
   .nav-cta{display:flex; align-items:center; gap:.75rem;}
   .hamburger{display:none; width:42px; height:42px; border:1px solid var(--line-2); border-radius:.6rem;
     background:var(--card); cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px;}
@@ -123,12 +136,19 @@
   .menu-backdrop.open{opacity:1; pointer-events:auto;}
 
   /* ---------- HERO ---------- */
-  .hero{min-height:100dvh; display:flex; align-items:center; padding:7rem 0 4rem;}
+  .hero{min-height:100dvh; display:flex; align-items:center; padding:7rem 0 4rem; position:relative;}
+  .hero::before{
+    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background-image:radial-gradient(circle at 1px 1px, var(--line-2) 1px, transparent 0);
+    background-size:30px 30px; opacity:.55;
+    -webkit-mask-image:radial-gradient(ellipse 65% 55% at 72% 32%, #000 15%, transparent 72%);
+    mask-image:radial-gradient(ellipse 65% 55% at 72% 32%, #000 15%, transparent 72%);
+  }
   .hero-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:clamp(2rem,5vw,4.5rem); align-items:center; width:100%;}
   .hero h1{font-size:clamp(2.6rem,6.2vw,4.6rem); font-weight:600;}
   .hero h1 .accent{color:var(--accent-2);}
   .hero .role{font-size:clamp(1.05rem,2vw,1.35rem); color:var(--ink-2); margin-top:1rem; font-weight:400;}
-  .hero .lead{max-width:46ch; font-size:1.05rem; color:var(--ink-2); margin:1.6rem 0 2rem;}
+  .hero .lead{max-width:48ch; font-size:1.05rem; color:var(--ink-2); margin:1.6rem 0 2rem;}
   .hero .lead strong{color:var(--ink); font-weight:500;}
   .hero-cta{display:flex; gap:.75rem; flex-wrap:wrap; align-items:center;}
 
@@ -165,7 +185,7 @@
 
   /* ---------- MARQUEE ---------- */
   .marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:1.1rem 0; overflow:hidden; background:var(--bg-2);}
-  .marquee .track{display:flex; gap:3rem; width:max-content; animation:scroll 32s linear infinite;}
+  .marquee .track{display:flex; gap:3rem; width:max-content; animation:scroll 34s linear infinite;}
   .marquee:hover .track{animation-play-state:paused;}
   .marquee .item{font-family:'Geist Mono',monospace; font-size:.85rem; color:var(--ink-2); display:flex; align-items:center; gap:3rem; white-space:nowrap;}
   .marquee .item::after{content:"/"; color:var(--accent); opacity:.5;}
@@ -192,10 +212,10 @@
     background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
     padding:clamp(1.5rem,2.6vw,2.25rem); box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
     transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
-    display:flex; flex-direction:column;
+    display:flex; flex-direction:column; transform-style:preserve-3d;
   }
   .tile::after{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-    background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(5,150,105,.06), transparent 60%);
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(79,70,229,.07), transparent 60%);
     opacity:0; transition:opacity .35s;}
   .tile:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--line-2);}
   .tile:hover::after{opacity:1;}
@@ -272,7 +292,7 @@
   .foot-inner{display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
     font-family:'Geist Mono',monospace; font-size:.76rem; color:var(--ink-3);}
 
-  /* reveal — CSS-transition driven (IntersectionObserver adds .in) */
+  /* reveal — CSS-transition driven (JS adds .in) */
   .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
   .reveal.in{opacity:1; transform:none;}
   /* hero stagger on load */
@@ -291,6 +311,7 @@
     .masonry{columns:2;}
     .quotes{grid-template-columns:1fr;}
     .tile.lg,.tile.sm{grid-column:span 6;}
+    .hero::before{-webkit-mask-image:radial-gradient(ellipse 90% 40% at 50% 12%, #000 10%, transparent 70%); mask-image:radial-gradient(ellipse 90% 40% at 50% 12%, #000 10%, transparent 70%);}
   }
   @media(max-width:720px){
     .nav-links,.nav-cta .btn{display:none;}
@@ -309,6 +330,8 @@
 </head>
 <body>
 
+<div class="scroll-progress" id="progress" aria-hidden="true"></div>
+
 <nav id="nav">
   <div class="wrap nav-inner">
     <a href="#top" class="brand"><span class="mark">SK</span>Sandeep Kumar</a>
@@ -319,7 +342,7 @@
       <a href="#path" class="lnk">Path</a>
     </div>
     <div class="nav-cta">
-      <a href="https://www.linkedin.com/in/sandeep-kumar-4bb609145/" class="btn ghost" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="assets/docs/Sandeep-Kumar-AI-Engineer.pdf" class="btn ghost" download>Résumé <span class="dl">&darr;</span></a>
       <a href="#contact" class="btn magnetic">Get in touch <span class="arw">&rarr;</span></a>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -335,6 +358,7 @@
   <a href="#toolkit">Toolkit</a>
   <a href="#path">Path</a>
   <a href="#contact">Get in touch</a>
+  <a href="assets/docs/Sandeep-Kumar-AI-Engineer.pdf" download>Download résumé</a>
   <a href="https://www.linkedin.com/in/sandeep-kumar-4bb609145/" target="_blank" rel="noopener">LinkedIn</a>
 </aside>
 
@@ -344,16 +368,17 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-left">
-      <div class="status reveal"><span class="dot"></span> Open to Senior / Lead Data Engineering &amp; Applied AI roles</div>
-      <h1 class="reveal">Sandeep Kumar,<br><span class="accent">Data &amp; AI Engineer.</span></h1>
-      <p class="role reveal">I build the data platforms companies run on, and the AI agents that sit on top of them.</p>
+      <div class="status reveal"><span class="dot"></span> Open to AI Engineer, Forward Deployed &amp; Agentic AI roles</div>
+      <h1 class="reveal">Sandeep Kumar,<br><span class="accent">AI Engineer.</span></h1>
+      <p class="role reveal">I ship production LLM agent systems, and the data platforms that feed them.</p>
       <p class="lead reveal">
-        Five-plus years turning messy data into <strong>Snowflake + dbt</strong> pipelines, decision-grade
-        analytics, and <strong>self-improving LLM systems</strong>. From the raw bytes to the agent that makes them useful.
+        Five-plus years building <strong>multi-agent harnesses</strong> in LangChain / LangGraph and TypeScript,
+        gated by hand-labeled eval sets, <strong>deterministic guardrails</strong>, and A/B testing in MLflow / DeepEval.
+        Forward-deployed: I turn ambiguous client requirements into deployed, maintained systems.
       </p>
       <div class="hero-cta reveal">
         <a href="#work" class="btn magnetic">See the work <span class="arw">&rarr;</span></a>
-        <a href="mailto:95sandeepkumar95@gmail.com" class="btn ghost">95sandeepkumar95@gmail.com</a>
+        <a href="assets/docs/Sandeep-Kumar-AI-Engineer.pdf" class="btn ghost" download>Download résumé <span class="dl">&darr;</span></a>
       </div>
     </div>
 
@@ -363,17 +388,18 @@
           <span class="lbl">profile.json</span>
           <span class="cred-dots"><i></i><i></i><i></i></span>
         </div>
-        <div class="row"><span class="k">role</span><span class="v">Data / Analytics Eng <span class="em">+ AI</span></span></div>
+        <div class="row"><span class="k">role</span><span class="v">AI / FDE Engineer <span class="em">+ Agentic</span></span></div>
         <div class="row"><span class="k">experience</span><span class="v">5+ years</span></div>
-        <div class="row"><span class="k">stack</span><span class="v">Snowflake &middot; dbt &middot; Python</span></div>
-        <div class="row"><span class="k">ai_layer</span><span class="v">LLM agents &middot; RAG &middot; AWS</span></div>
+        <div class="row"><span class="k">stack</span><span class="v">LangGraph &middot; TypeScript</span></div>
+        <div class="row"><span class="k">eval</span><span class="v">DeepEval &middot; MLflow</span></div>
+        <div class="row"><span class="k">guardrails</span><span class="v">Deterministic &middot; HITL</span></div>
         <div class="row"><span class="k">location</span><span class="v">Chicago, IL &middot; US</span></div>
         <div class="row"><span class="k">status</span><span class="v"><span class="em">available</span></span></div>
       </div>
       <div class="mini-stats">
-        <div class="ms"><div class="n">25.5M+</div><div class="t">events modeled</div></div>
-        <div class="ms"><div class="n">186K</div><div class="t">articles ingested</div></div>
-        <div class="ms"><div class="n">11</div><div class="t">agent ops bot</div></div>
+        <div class="ms"><div class="n"><span data-count="11">11</span></div><div class="t">persona agent framework</div></div>
+        <div class="ms"><div class="n"><span data-count="83">83</span>%</div><div class="t">fine-tuned eval accuracy</div></div>
+        <div class="ms"><div class="n"><span data-count="156">156</span></div><div class="t">invalid tool-calls blocked</div></div>
       </div>
     </div>
   </div>
@@ -382,8 +408,8 @@
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
   <div class="track">
-    <span class="item">Snowflake</span><span class="item">dbt</span><span class="item">Python</span><span class="item">SQL</span><span class="item">AWS</span><span class="item">LLM Agents</span><span class="item">RAG</span><span class="item">Pinecone</span><span class="item">Tableau</span><span class="item">Power BI</span><span class="item">n8n</span><span class="item">DuckDB</span>
-    <span class="item">Snowflake</span><span class="item">dbt</span><span class="item">Python</span><span class="item">SQL</span><span class="item">AWS</span><span class="item">LLM Agents</span><span class="item">RAG</span><span class="item">Pinecone</span><span class="item">Tableau</span><span class="item">Power BI</span><span class="item">n8n</span><span class="item">DuckDB</span>
+    <span class="item">LangChain</span><span class="item">LangGraph</span><span class="item">TypeScript</span><span class="item">Python</span><span class="item">RAG</span><span class="item">Pinecone</span><span class="item">DeepEval</span><span class="item">MLflow</span><span class="item">LoRA</span><span class="item">AWS</span><span class="item">FastAPI</span><span class="item">Snowflake</span><span class="item">dbt</span><span class="item">n8n</span>
+    <span class="item">LangChain</span><span class="item">LangGraph</span><span class="item">TypeScript</span><span class="item">Python</span><span class="item">RAG</span><span class="item">Pinecone</span><span class="item">DeepEval</span><span class="item">MLflow</span><span class="item">LoRA</span><span class="item">AWS</span><span class="item">FastAPI</span><span class="item">Snowflake</span><span class="item">dbt</span><span class="item">n8n</span>
   </div>
 </div>
 
@@ -392,31 +418,38 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="kicker">01 / The short story</span>
-      <h2>Data analytics, project management, and a builder's instinct.</h2>
+      <h2>Ambiguous requirements in, deployed agent systems out.</h2>
     </div>
     <div class="about-grid">
       <div class="about-copy reveal">
         <p>
-          At Becker's I <strong>own the Snowflake + dbt data platform end to end</strong>: a medallion ELT
-          ingesting tens of millions of events, the company's email-validation and provider-classification
-          sources of truth, marketing automation, and a multi-app analytics platform.
+          At Becker's Healthcare I build the AI layer end to end: an <strong>11-persona multi-agent orchestration
+          framework in TypeScript</strong> with a 4-tier intent-dispatch router, ~25 commands, an error/feedback
+          learning loop, and a manual-approval human-in-the-loop gate. Every agent tool call passes a
+          <strong>deterministic guardrail layer</strong> that validates it against hard-coded business rules before
+          execution &mdash; it has blocked 156 invalid actions in production.
         </p>
         <p>
-          On top of that I build the AI layer: a <strong>self-improving multi-LLM agent on AWS</strong>, an
-          11-agent operations bot, and RAG plus automation pipelines. I diagnosed a 1.99M-contact data leak and
-          quantified eight figures of revenue at risk from misclassification.
+          The rigor underneath it is the point. I built an <strong>LLM eval harness</strong> from 15 hand-labeled
+          expert trajectories, scored multi-turn runs with DeepEval and LLM-as-judge, tracked everything in MLflow, and
+          gated deployment on pass rate &mdash; catching 11% of regressions before release. A/B testing two tool-config
+          variants shipped the winner on a 17-point lift; a LoRA fine-tune took eval accuracy from 55% to 83%. Governance
+          (ISO 42001, NIST AI RMF) is wired in as automated guardrail enforcement, not paperwork.
         </p>
         <p>
-          Earlier I led teams of 15, managed vendor relationships, and shipped a dozen Tableau dashboards.
-          I like the whole stack, from the raw bytes to the agent that makes them useful.
+          I like the whole stack. RAG pipelines in n8n (Apify scraping, Pinecone embeddings, an LLM style-validation
+          gate); a hermes-agent multi-LLM framework on AWS EC2 reading Snowflake and a knowledge graph; and the
+          <strong>Snowflake + dbt medallion platform</strong> (25.5M+ events, 186K articles) that feeds it all. On the
+          side: a live multi-model LLM audit engine with per-call failover, and a production RAG SaaS for purchase-order
+          extraction with a self-training memory layer.
         </p>
       </div>
       <div class="facts reveal">
         <div class="row"><span class="k">Experience</span><span class="v">5+ years</span></div>
         <div class="row"><span class="k">University</span><span class="v">Indiana University</span></div>
-        <div class="row"><span class="k">Education</span><span class="v">M.S. Info Science, B-Tech</span></div>
-        <div class="row"><span class="k">Certifications</span><span class="v">PMP &middot; Power BI &middot; SCRUM</span></div>
-        <div class="row"><span class="k">Languages</span><span class="v">Python, R, SQL, SAS</span></div>
+        <div class="row"><span class="k">Education</span><span class="v">M.S. Information Science</span></div>
+        <div class="row"><span class="k">Focus</span><span class="v">Agentic AI &middot; LLM Systems</span></div>
+        <div class="row"><span class="k">Languages</span><span class="v">Python, TypeScript, SQL, R</span></div>
         <div class="row"><span class="k">Location</span><span class="v">Chicago, IL</span></div>
         <div class="row"><span class="k">Phone</span><span class="v">+1 872-235-6281</span></div>
         <div class="row"><span class="k">Email</span><span class="v">95sandeepkumar95@gmail.com</span></div>
@@ -430,37 +463,37 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="kicker">02 / Selected work</span>
-      <h2>What I'm building now.</h2>
-      <p>The current platform and AI work at Becker's Healthcare.</p>
+      <h2>Agent systems in production.</h2>
+      <p>The LLM agent and platform work I'm shipping at Becker's Healthcare.</p>
     </div>
     <div class="bento">
       <article class="tile lg reveal">
         <span class="idx mono">01</span>
-        <div class="t-tag">the platform everything runs on</div>
-        <h3>Snowflake + dbt Medallion ELT</h3>
-        <p>Bronze / Silver / Gold dbt pipelines ingesting tens of millions of events and 186K+ articles, with incremental MERGE loads, tested models, and a shared Gold layer powering the whole org's analytics.</p>
-        <div class="tags"><span>Snowflake</span><span>dbt</span><span>Python</span><span>ELT</span></div>
+        <div class="t-tag">11 personas &middot; typescript orchestration</div>
+        <h3>Multi-Agent Orchestration Framework</h3>
+        <p>An 11-persona agent framework (Clawd Bot, TypeScript) with a 4-tier intent-dispatch router, ~25 commands, an error/feedback learning loop, and a manual-approval human-in-the-loop gate. Ambiguous requests routed to the right agent, safely.</p>
+        <div class="tags"><span>TypeScript</span><span>LangGraph</span><span>Routing</span><span>HITL</span></div>
       </article>
       <article class="tile sm reveal">
         <span class="idx mono">02</span>
-        <div class="t-tag">data integrity as a product</div>
-        <h3>Sources of Truth</h3>
-        <p>Built the company's email-validation and provider-classification systems of record. Surfaced a 1.99M-contact leak and eight figures of revenue at risk.</p>
-        <div class="tags"><span>SQL</span><span>Data Quality</span><span>Snowflake</span></div>
+        <div class="t-tag">eval-gated releases</div>
+        <h3>LLM Eval Harness</h3>
+        <p>15 hand-labeled expert trajectories scored with DeepEval and LLM-as-judge, tracked in MLflow. Release gate caught 11% of regressions; A/B testing shipped a 17-point pass-rate lift.</p>
+        <div class="tags"><span>DeepEval</span><span>MLflow</span><span>A/B</span></div>
       </article>
       <article class="tile sm reveal">
         <span class="idx mono">03</span>
-        <div class="t-tag">an agent that gets better</div>
-        <h3>Self-Improving LLM Agent</h3>
-        <p>Deployed a multi-LLM agent to AWS with an improvement loop, plus an 11-agent operations bot coordinating tasks across tools.</p>
-        <div class="tags"><span>LLMs</span><span>AI Agents</span><span>AWS</span><span>MCP</span></div>
+        <div class="t-tag">safety before execution</div>
+        <h3>Deterministic Guardrail Layer</h3>
+        <p>Validates every agent-proposed tool call against hard-coded business rules before it runs &mdash; 156 invalid actions blocked in production. ISO 42001 / NIST AI RMF enforcement wired in.</p>
+        <div class="tags"><span>Guardrails</span><span>Governance</span><span>Safety</span></div>
       </article>
       <article class="tile lg reveal">
         <span class="idx mono">04</span>
-        <div class="t-tag">retrieval that actually retrieves</div>
-        <h3>RAG + Automation Pipelines</h3>
-        <p>Shipped Pinecone-backed RAG and n8n automation pipelines, plus a multi-app DuckDB-WASM analytics platform, turning documents and warehouse data into answers in the browser.</p>
-        <div class="tags"><span>Pinecone</span><span>RAG</span><span>n8n</span><span>DuckDB</span></div>
+        <div class="t-tag">retrieval, fine-tuning &amp; automation</div>
+        <h3>Production RAG + LoRA + Automation</h3>
+        <p>A production RAG pipeline in n8n (Apify scraping &rarr; Pinecone embeddings &rarr; LLM style-validation gate), a LoRA fine-tune lifting eval accuracy 55% &rarr; 83%, and a hermes-agent multi-LLM framework on AWS EC2 reading Snowflake and a knowledge graph.</p>
+        <div class="tags"><span>RAG</span><span>Pinecone</span><span>LoRA</span><span>n8n</span><span>AWS</span></div>
       </article>
     </div>
   </div>
@@ -471,8 +504,8 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="kicker">03 / Data portfolio</span>
-      <h2>Visualization &amp; dashboard work.</h2>
-      <p>A selection of past data-viz and BI builds. Click any tile for the full image.</p>
+      <h2>Analytics &amp; visualization work.</h2>
+      <p>A selection of past data-viz and BI builds behind the models. Click any tile for the full image.</p>
     </div>
     <div class="masonry">
       <a class="shot-card reveal" href="assets/charts/chart-1.jpg" target="_blank" rel="noopener">
@@ -524,28 +557,28 @@
     </div>
     <div class="tools reveal">
       <div class="tool-row">
-        <div class="cat"><span class="sq"></span>Languages</div>
-        <div class="chips"><span>SQL</span><span>Python</span><span>Pandas</span><span>NumPy</span><span>Scikit-learn</span><span>Matplotlib</span><span>R</span><span>dplyr</span><span>ggplot2</span><span>SAS</span><span>DAX</span></div>
+        <div class="cat"><span class="sq"></span>Agent Engineering</div>
+        <div class="chips"><span>Agent Harnessing</span><span>Multi-agent Orchestration</span><span>LangChain</span><span>LangGraph</span><span>AgentCore</span><span>RAG (Pinecone)</span><span>Human-in-the-Loop</span><span>Context Engineering</span><span>MCP</span></div>
       </div>
       <div class="tool-row">
-        <div class="cat"><span class="sq"></span>Data &amp; BI</div>
-        <div class="chips"><span>Tableau</span><span>Power BI</span><span>Looker</span><span>Sigma</span><span>Excel</span><span>VBA</span><span>Google Analytics</span></div>
+        <div class="cat"><span class="sq"></span>LLM Frameworks &amp; Platforms</div>
+        <div class="chips"><span>OpenAI Agents SDK</span><span>Semantic Kernel</span><span>Mastra</span><span>Prompt Engineering</span><span>OpenAI GPT</span><span>Claude</span><span>Gemini</span><span>Grok</span><span>Open-weight models</span></div>
       </div>
       <div class="tool-row">
-        <div class="cat"><span class="sq"></span>Databases &amp; Warehouse</div>
-        <div class="chips"><span>Snowflake</span><span>dbt</span><span>PostgreSQL</span><span>MySQL</span><span>NoSQL</span><span>Neo4j</span><span>BigQuery</span><span>DuckDB</span></div>
+        <div class="cat"><span class="sq"></span>Eval &amp; Governance</div>
+        <div class="chips"><span>DeepEval</span><span>MLflow</span><span>LangSmith</span><span>Langfuse</span><span>LLM-as-judge</span><span>A/B Testing</span><span>LoRA fine-tuning</span><span>OpenTelemetry</span><span>ISO 42001</span><span>NIST AI RMF</span></div>
       </div>
       <div class="tool-row">
-        <div class="cat"><span class="sq"></span>AI &amp; ML</div>
-        <div class="chips"><span>LLM Agents</span><span>RAG</span><span>Pinecone</span><span>MCP</span><span>NLP</span><span>Predictive Modeling</span><span>Classification</span><span>Clustering</span></div>
+        <div class="cat"><span class="sq"></span>Languages &amp; Backend</div>
+        <div class="chips"><span>Python</span><span>TypeScript</span><span>SQL</span><span>R</span><span>Pandas</span><span>NumPy</span><span>Scikit-learn</span><span>FastAPI</span><span>OpenAPI / Swagger</span><span>REST</span></div>
       </div>
       <div class="tool-row">
-        <div class="cat"><span class="sq"></span>Cloud &amp; Automation</div>
-        <div class="chips"><span>AWS (S3, EC2, Lambda, SageMaker)</span><span>GCP</span><span>Azure</span><span>n8n</span><span>Power Automate</span><span>CI/CD</span><span>Git</span></div>
+        <div class="cat"><span class="sq"></span>Data &amp; Warehouse</div>
+        <div class="chips"><span>Snowflake</span><span>dbt</span><span>PostgreSQL</span><span>MySQL</span><span>NoSQL</span><span>Neo4j</span><span>BigQuery</span><span>Vector DBs</span><span>AWS Neptune</span></div>
       </div>
       <div class="tool-row">
-        <div class="cat"><span class="sq"></span>Statistics</div>
-        <div class="chips"><span>Hypothesis Testing</span><span>Regression</span><span>Survival Analysis</span><span>Network Analysis</span><span>GLM</span></div>
+        <div class="cat"><span class="sq"></span>Cloud &amp; DevOps</div>
+        <div class="chips"><span>AWS (S3, EC2, Lambda, SageMaker)</span><span>GCP</span><span>Azure</span><span>Docker</span><span>Git</span><span>GitHub Actions</span><span>CI/CD</span><span>n8n</span></div>
       </div>
     </div>
   </div>
@@ -560,28 +593,28 @@
     </div>
     <div class="timeline">
       <div class="tl reveal">
-        <div class="when">Now</div>
+        <div class="when">Now &middot; Jan 2025</div>
         <h3>Becker's Healthcare</h3>
-        <div class="meta">Data / Analytics Engineer &amp; AI Developer</div>
-        <p>Own the Snowflake + dbt platform, the company's data sources of truth, marketing automation, and the AI agent layer deployed on AWS.</p>
+        <div class="meta">AI Developer &amp; Data Engineer</div>
+        <p>Build production LLM agent systems: multi-agent orchestration, eval harnesses, deterministic guardrails, RAG and voice automation, on top of the Snowflake + dbt platform deployed on AWS.</p>
       </div>
       <div class="tl reveal">
-        <div class="when">Consulting</div>
+        <div class="when">2022 &middot; Consulting</div>
         <h3>Decision Point Analytics</h3>
-        <div class="meta">Analytics Consultant</div>
-        <p>Led a churn-prediction engagement, presenting model results and strategy directly to C-suite stakeholders.</p>
+        <div class="meta">Program Manager</div>
+        <p>Built Python ETL pipelines and SQL data models, spearheaded a Power BI resource-management tool, and cut batch processing times 50% with Apache Spark.</p>
       </div>
       <div class="tl reveal">
-        <div class="when">Manufacturing</div>
+        <div class="when">2019&ndash;2022 &middot; Manufacturing</div>
         <h3>Volvo</h3>
-        <div class="meta">Data Analyst &amp; Team Lead</div>
-        <p>Built demand-forecasting models and a dozen Tableau dashboards while leading a 15-person team.</p>
+        <div class="meta">Project Manager / Data Analyst</div>
+        <p>Automated forecasting and reporting with Python and Excel VBA, built Power BI dashboards for 10+ units and 20+ KPIs per line. Earned the Innovation Award.</p>
       </div>
       <div class="tl reveal">
-        <div class="when">Graduate school</div>
+        <div class="when">2023&ndash;2024 &middot; Graduate school</div>
         <h3>Indiana University</h3>
-        <div class="meta">Graduate Teaching Assistant &middot; M.S. Information Science</div>
-        <p>Taught statistics and guided doctoral researchers on methods and tooling.</p>
+        <div class="meta">Teaching Assistant, Statistics &middot; M.S. Information Science</div>
+        <p>Built 20+ R and Python notebooks and used SQL to query large datasets, supporting cancer-research analysis on high-volume data.</p>
       </div>
     </div>
   </div>
@@ -622,15 +655,17 @@
       <div class="reveal">
         <span class="kicker">07 / Let's talk</span>
         <h2 style="margin-top:1rem;">Let's build something.</h2>
-        <p>Open to Senior and Lead Data Engineering and Applied AI roles. Remote, hybrid, or on-site in the US.</p>
+        <p>Open to AI Engineer, Forward Deployed Engineer, and Agentic AI roles. Remote, hybrid, or on-site anywhere in the US.</p>
         <div class="contact-cta">
           <a href="mailto:95sandeepkumar95@gmail.com" class="btn magnetic">Email me <span class="arw">&rarr;</span></a>
+          <a href="assets/docs/Sandeep-Kumar-AI-Engineer.pdf" class="btn accent" download>Download résumé <span class="dl">&darr;</span></a>
           <a href="https://www.linkedin.com/in/sandeep-kumar-4bb609145/" class="btn ghost" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
       <div class="links reveal">
         <a href="mailto:95sandeepkumar95@gmail.com"><span>Email</span><span>95sandeepkumar95@gmail.com <span class="arw">&rarr;</span></span></a>
         <a href="tel:+18722356281"><span>Phone</span><span>+1 872-235-6281 <span class="arw">&rarr;</span></span></a>
+        <a href="assets/docs/Sandeep-Kumar-AI-Engineer.pdf" download><span>Résumé</span><span>Download PDF <span class="arw">&darr;</span></span></a>
         <a href="https://github.com/95Sandykumar" target="_blank" rel="noopener"><span>GitHub</span><span>95Sandykumar <span class="arw">&rarr;</span></span></a>
         <a href="https://www.linkedin.com/in/sandeep-kumar-4bb609145/" target="_blank" rel="noopener"><span>LinkedIn</span><span>sandeep-kumar <span class="arw">&rarr;</span></span></a>
       </div>
@@ -641,11 +676,19 @@
 <footer>
   <div class="wrap foot-inner">
     <span>&copy; 2026 Sandeep Kumar &middot; Chicago, IL</span>
-    <span>Data &amp; AI Engineer</span>
+    <span>AI / Forward Deployed Engineer</span>
   </div>
 </footer>
 
-<script>
+<!-- scroll-animation libraries (progressive enhancement) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+
+<script defer>
+window.addEventListener('DOMContentLoaded', () => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // ---- nav scrolled state via IntersectionObserver (no scroll listener) ----
   const nav = document.getElementById('nav');
   const sentinel = document.createElement('div');
@@ -669,8 +712,6 @@
   backdrop.addEventListener('click', () => setMenu(false));
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   // ---- magnetic buttons (transform only, rAF, no state) ----
   if (!reduceMotion && window.matchMedia('(hover:hover)').matches) {
     document.querySelectorAll('.magnetic').forEach(el => {
@@ -689,49 +730,137 @@
     });
   }
 
-  // ---- bento spotlight follow (CSS var, cheap) ----
+  // ---- bento spotlight follow + subtle tilt (CSS var + transform, cheap) ----
+  const canHover = window.matchMedia('(hover:hover)').matches;
   document.querySelectorAll('.tile').forEach(t => {
     t.addEventListener('pointermove', (ev) => {
       const r = t.getBoundingClientRect();
       t.style.setProperty('--mx', `${ev.clientX - r.left}px`);
       t.style.setProperty('--my', `${ev.clientY - r.top}px`);
+      if (!reduceMotion && canHover) {
+        const px = (ev.clientX - r.left) / r.width - 0.5;
+        const py = (ev.clientY - r.top) / r.height - 0.5;
+        t.style.transform = `perspective(900px) rotateY(${px * 4}deg) rotateX(${py * -4}deg) translateY(-4px)`;
+      }
     });
+    t.addEventListener('pointerleave', () => { t.style.transform = ''; });
   });
 
-  // ---- reveals (IntersectionObserver + CSS transitions) ----
   const reveals = [...document.querySelectorAll('.reveal')];
+  const showAll = () => reveals.forEach(el => el.classList.add('in'));
 
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    reveals.forEach(el => el.classList.add('in'));
-  } else {
-    // hero reveals fire immediately on load (staggered via CSS transition-delay)
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+  // ---- reduced motion: no animation, everything visible ----
+  if (reduceMotion) { showAll(); return; }
+
+  const gsap = window.gsap;
+
+  if (gsap && window.ScrollTrigger) {
+    // ===== Enhanced scroll layer: Lenis smooth scroll + GSAP ScrollTrigger =====
+    gsap.registerPlugin(window.ScrollTrigger);
+
+    if (window.Lenis) {
+      const lenis = new window.Lenis({ lerp: 0.11, wheelMultiplier: 1 });
+      lenis.on('scroll', window.ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+      // keep hash-link nav working through Lenis
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (id.length > 1 && document.querySelector(id)) {
+            e.preventDefault(); lenis.scrollTo(id, { offset: -10 });
+          }
+        });
+      });
+    }
+
+    // hero reveals fire immediately (CSS transition-delay staggers them)
+    document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+
+    // section reveals, staggered per batch, one-shot
+    window.ScrollTrigger.batch(reveals.filter(el => !el.closest('.hero')), {
+      start: 'top 88%',
+      onEnter: (batch) => batch.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 70))
     });
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
-    reveals.forEach(el => { if (!el.closest('.hero')) io.observe(el); });
 
-    // Fallback: a fast scroll can outrun IO callbacks. This passive, rAF-throttled
-    // check reveals anything already in view that IO missed, then removes itself
-    // once every element is shown. One cheap getBoundingClientRect per element, no
-    // animation math, so it stays within the perf guardrails.
+    // safety sweep: guarantees nothing stays invisible on fast scroll / jump-to-bottom
     let ticking = false;
     const sweep = () => {
-      ticking = false;
-      const vh = window.innerHeight;
-      let remaining = 0;
+      ticking = false; const vh = window.innerHeight;
       reveals.forEach(el => {
         if (el.classList.contains('in')) return;
         const r = el.getBoundingClientRect();
-        if (r.top < vh * 0.94 && r.bottom > 0) el.classList.add('in'); else remaining++;
+        if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add('in');
       });
-      if (remaining === 0) window.removeEventListener('scroll', onScroll);
     };
-    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(sweep); } };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(sweep); } }, { passive: true });
+    requestAnimationFrame(sweep);
+
+    // scroll progress bar
+    const bar = document.getElementById('progress');
+    window.ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (self) => { bar.style.transform = `scaleX(${self.progress})`; }
+    });
+
+    // hero credential card parallax
+    gsap.to('.hero-right', {
+      yPercent: -9, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    // count-up mini-stats
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const to = +el.dataset.count;
+      window.ScrollTrigger.create({
+        trigger: el, start: 'top 92%', once: true,
+        onEnter: () => gsap.fromTo(el, { textContent: 0 }, {
+          textContent: to, duration: 1.6, ease: 'power1.out',
+          snap: { textContent: 1 },
+          onUpdate: function () { el.textContent = Math.round(el.textContent); }
+        })
+      });
+    });
+
+    // active nav link highlight
+    const navLinks = [...document.querySelectorAll('.nav-links .lnk')];
+    const byId = Object.fromEntries(navLinks.map(l => [l.getAttribute('href').slice(1), l]));
+    ['work','portfolio','toolkit','path'].forEach(id => {
+      const sec = document.getElementById(id); if (!sec) return;
+      window.ScrollTrigger.create({
+        trigger: sec, start: 'top 55%', end: 'bottom 55%',
+        onToggle: (self) => {
+          if (self.isActive) { navLinks.forEach(l => l.classList.remove('active')); byId[id].classList.add('active'); }
+        }
+      });
+    });
+
+  } else {
+    // ===== Fallback: no GSAP/Lenis CDN — IntersectionObserver reveals =====
+    document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+      reveals.forEach(el => { if (!el.closest('.hero')) io.observe(el); });
+      // fast-scroll safety sweep
+      let ticking = false;
+      const sweep = () => {
+        ticking = false; const vh = window.innerHeight; let remaining = 0;
+        reveals.forEach(el => {
+          if (el.classList.contains('in')) return;
+          const r = el.getBoundingClientRect();
+          if (r.top < vh * 0.94 && r.bottom > 0) el.classList.add('in'); else remaining++;
+        });
+        if (remaining === 0) window.removeEventListener('scroll', onScroll);
+      };
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(sweep); } };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    } else {
+      showAll();
+    }
   }
+});
 </script>
 </body>
 </html>
